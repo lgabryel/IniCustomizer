@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CONFIG>
-  <Compiler Value="C:\lazarus\fpc\3.0.4\bin\i386-win32\fpc.exe" Date="1331391085"/>
-  <Params Value=" -MObjFPC -Scghi -O1 -g -gl -l -vewnhibq &quot;-FiC:\Documents and Settings\Lukas\Desktop\AppCustomizer\lib\i386-win32&quot; &quot;-FuC:\Documents and Settings\Lukas\Desktop\AppCustomizer\&quot; &quot;-FUC:\Documents and Settings\Lukas\Desktop\AppCustomizer\lib\i386-win32\&quot; &quot;-FEC:\Documents and Settings\Lukas\Desktop\AppCustomizer\&quot; &quot;-oC:\Documents and Settings\Lukas\Desktop\AppCustomizer\AppCustomizer.exe&quot; AppCustomizer.lpr"/>
-</CONFIG>
