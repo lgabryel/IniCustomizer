@@ -19,6 +19,7 @@ type
     overrideApp: TINIFile;
     destinationApp : TINIFile;
     procedure CopyIniFile(source : TINIFile; dest : TINIFile);
+    procedure CheckOptionsAndExitOnError(shortParam : String; longParam : String);
   protected
     procedure DoRun; override;
   public
@@ -31,15 +32,11 @@ type
 
 procedure TAppCustomizer.DoRun;
 var
-  ErrorMsg: String;
+  sourcePath, destPath, overridePath : String;
 begin
-  // quick check parameters
-  ErrorMsg:=CheckOptions('h', 'help');
-  if ErrorMsg<>'' then begin
-    ShowException(Exception.Create(ErrorMsg));
-    Terminate;
-    Exit;
-  end;
+{  CheckOptionsAndExitOnError('s','source');
+  CheckOptionsAndExitOnError('o','override');
+  CheckOptionsAndExitOnError('d','destination');  }
 
   // parse parameters
   if HasOption('h', 'help') then begin
@@ -48,10 +45,14 @@ begin
     Exit;
   end;
 
+  sourcePath := GetOptionValue('s', 'source');
+  destPath := GetOptionValue('d', 'destination');
+  overridePath := GetOptionValue('o', 'override');
+
   { add your program here }
-  patternApp :=  TINIFile.Create('pattern.app');
-  overrideApp := TINIFile.Create('override.app');
-  destinationApp := TINIFile.Create('destination.app');
+  patternApp :=  TINIFile.Create(sourcePath);
+  overrideApp := TINIFile.Create(overridePath);
+  destinationApp := TINIFile.Create(destPath);
 
   CopyIniFile(patternApp,destinationApp);
   CopyIniFile(overrideApp,destinationApp);
@@ -59,6 +60,19 @@ begin
 
   // stop program loop
   Terminate;
+end;
+
+procedure TAppCustomizer.CheckOptionsAndExitOnError(shortParam : String; longParam : String);
+var
+  ErrorMsg: String;
+begin
+  // quick check parameters
+  ErrorMsg:=CheckOptions(shortParam, longParam);
+  if ErrorMsg<>'' then begin
+    ShowException(Exception.Create(ErrorMsg));
+    Terminate;
+    Exit;
+  end;
 end;
 
 constructor TAppCustomizer.Create(TheOwner: TComponent);
